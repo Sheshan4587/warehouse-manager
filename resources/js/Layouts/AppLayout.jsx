@@ -16,13 +16,13 @@ import {
 } from 'lucide-react'
 
 const navItems = [
-    { label: 'Dashboard',  href: '/',            icon: LayoutDashboard },
-    { label: 'Categories', href: '/categories',  icon: Tags },
-    { label: 'Suppliers',  href: '/suppliers',   icon: Users },
-    { label: 'Products',   href: '/products',    icon: Package },
-    { label: 'Shipments',  href: '/shipments',   icon: Truck },
-    { label: 'Sales',      href: '/sales',       icon: ShoppingCart },
-    { label: 'Returns',    href: '/returns',     icon: RotateCcw },
+    { label: 'Dashboard', href: '/', icon: LayoutDashboard },
+    { label: 'Categories', href: '/categories', icon: Tags },
+    { label: 'Suppliers', href: '/suppliers', icon: Users },
+    { label: 'Products', href: '/products', icon: Package },
+    { label: 'Shipments', href: '/shipments', icon: Truck },
+    { label: 'Sales', href: '/sales', icon: ShoppingCart },
+    { label: 'Returns', href: '/returns', icon: RotateCcw },
 ]
 
 function useTheme() {
@@ -32,11 +32,7 @@ function useTheme() {
 
     useEffect(() => {
         const root = document.documentElement
-        if (theme === 'dark') {
-            root.classList.add('dark')
-        } else {
-            root.classList.remove('dark')
-        }
+        root.classList.toggle('dark', theme === 'dark') // Add or remove the 'dark' class on the root element
         localStorage.setItem('theme', theme)
     }, [theme])
 
