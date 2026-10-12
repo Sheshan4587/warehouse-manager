@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\ProductController;
 
 //Dashboard route
 Route::get('/', function () {
@@ -17,3 +18,7 @@ Route::resource('categories', CategoryController::class)
 //Supplier routes
 Route::resource('suppliers', SupplierController::class)
     ->only(['index', 'store', 'update', 'destroy']);
+
+//Product routes
+Route::resource('products', ProductController::class)
+    ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
