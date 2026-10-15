@@ -14,7 +14,7 @@ function CategoryModal({ onClose, editing }) {
     })
 
     function handleSubmit(e) {
-        e.preventDefault()
+        e.preventDefault() // Prevent the default form submission behavior, which would cause a page reload. Instead, we handle the submission with JavaScript.
         if (editing) {
             // Edit mode → PUT /categories/{id}
             put(`/categories/${editing.id}`, {
@@ -41,6 +41,7 @@ function CategoryModal({ onClose, editing }) {
             onClick={onClose}
         >
             {/* Modal box — stop click from bubbling to backdrop */}
+            {/*stopPropagation means that when you click inside the modal, the click event won't propagate to the backdrop, preventing the modal from closing.*/}
             <div
                 className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg w-full max-w-md mx-4 shadow-xl"
                 onClick={e => e.stopPropagation()}
@@ -181,6 +182,8 @@ export default function Index({ categories }) {
                         Categories
                     </h2>
                     <p className="text-sm text-gray-500 dark:text-gray-400">
+                        {/* Display the number of categories and handle singular/plural form */}
+                        {/* categories.length gives the total number of categories. If it's 1, we display "category"; otherwise, we display "categories". */}
                         {categories.length} {categories.length === 1 ? 'category' : 'categories'}
                     </p>
                 </div>
