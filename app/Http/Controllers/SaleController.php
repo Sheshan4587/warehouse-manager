@@ -22,7 +22,7 @@ class SaleController extends Controller
         $stats = [
             'total_sales'   => $sales->count(),
             'total_revenue' => $sales->sum('total_amount'),
-            'today_sales'   => $sales->filter(fn($s) => $s->sold_at->isToday())->count(),
+            'today_sales'   => $sales->filter(fn($s) => $s->sold_at->isToday())->count(), //fn is a shorthand for defining anonymous functions in PHP.
             'today_revenue' => $sales->filter(fn($s) => $s->sold_at->isToday())->sum('total_amount'),
         ];
 
@@ -34,6 +34,15 @@ class SaleController extends Controller
 
     public function create(): Response
     {
+        /**
+         * in short, this method is responsible for rendering the 'Sales/Create' view using Inertia,
+         * and it passes a list of products that are available for sale (i.e., products with stock greater than 0) to the view.
+         * The products are ordered by name and only the necessary fields (id, name, selling_price, stock_packs, packs_per_bundle) are retrieved from the database to optimize performance.
+         * This allows the front-end to display a form for creating a new sale, where users can select products and specify the quantity sold.
+         * The 'where' clause ensures that only products with stock greater than 0 are included in the list, preventing users from attempting to sell out-of-stock products.
+         * Overall, this method prepares the necessary data for the sale creation process in the application,
+         * ensuring that users have access to the relevant product information when recording a new sale.
+         */
         return Inertia::render('Sales/Create', [
             'products' => Product::orderBy('name')
                 ->where('stock_packs', '>', 0)
@@ -51,6 +60,8 @@ class SaleController extends Controller
             });
 
             // Create sale record
+            // the diffrent in this create method from public function create() is that the create method is used to insert a new record into the database, 
+            // while the create method in public function create() is used to render a view for creating a new record.
             $sale = Sale::create([
                 'reference_number' => $request->reference_number, //$request-> is use for accessing the data from the request object, which contains the validated input data from the form submission in front-end.
                 'sold_at'          => $request->sold_at, //in short, $request-> is a way to access the data that was sent from the front-end form to the back-end controller.
