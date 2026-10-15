@@ -62,7 +62,7 @@ export default function Create({ suppliers, products }) {
             if (field === 'bundles_received') {
                 const product = products.find(p => p.id === parseInt(item.product_id))
                 if (product) {
-                    updated.packs_received = parseInt(value || 0) * product.packs_per_bundle
+                    updated.packs_received = parseInt(value || 0) * product.packs_per_bundle // Calculate packs based on bundles and packs_per_bundle
                 }
             }
 
