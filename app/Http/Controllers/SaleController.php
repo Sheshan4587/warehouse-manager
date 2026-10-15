@@ -95,6 +95,11 @@ class SaleController extends Controller
 
     public function show(Sale $sale): Response
     {
+        /**
+         * Load the sale with its items and the associated products, then render the 'Sales/Show' view using Inertia, passing the loaded sale data to the view.
+         * The 'load' method is used to eager load the 'items' relationship and the 'product' relationship of each item to avoid the N+1 query problem, ensuring efficient database queries.
+         * This approach minimizes the number of database queries needed to fetch the required data, improving the performance of the application.
+         */
         return Inertia::render('Sales/Show', [
             'sale' => $sale->load('items.product'),
         ]);
