@@ -3,6 +3,32 @@ import { Link, router } from '@inertiajs/react'
 import { Plus, Trash2, Eye, ShoppingCart, TrendingUp, Calendar, DollarSign } from 'lucide-react'
 
 function StatCard({ label, value, icon: Icon, color }) {
+    /**
+     * StatCard component is a reusable UI component that displays a statistic with an icon, label, and value. It takes in the following props:
+     * - label: A string representing the label of the statistic (e.g., "Total Sales").
+     * - value: A string or number representing the value of the statistic (e.g., "1000").
+     * - icon: A React component representing the icon to be displayed alongside the statistic.
+     * - color: A string representing the background color and text color classes for styling the icon container.
+     *
+     * The component renders a card with a colored icon on the left and the label and value on the right. It uses Tailwind CSS classes for styling and supports dark mode.
+     * The StatCard component is used in the Index page to display key performance indicators (KPIs) related to sales, such as total sales, total revenue, today's sales, and today's revenue.
+     * It provides a visually appealing way to present important metrics to the user.
+     * 
+     * @param {Object} props - The props object containing the properties for the StatCard component.
+     * @param {string} props.label - The label of the statistic.
+     * @param {string|number} props.value - The value of the statistic.
+     * @param {React.Component} props.icon - The icon component to be displayed alongside the statistic.
+     * @param {string} props.color - The background color and text color classes for styling the icon container.
+     * @returns {JSX.Element} A JSX element representing the StatCard component.
+     * 
+     * Example usage:
+     * <StatCard
+     *   label="Total Sales"
+     *   value={stats.total_sales}
+     *   icon={ShoppingCart}
+     *   color="bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400"
+     * />
+     */
     return (
         <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4 flex items-center gap-4">
             <div className={`p-2 rounded-lg ${color}`}>
