@@ -9,6 +9,7 @@ use App\Models\StockMovement;
 use App\Models\Supplier;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -62,7 +63,7 @@ class ShipmentController extends Controller
             ]);
 
             // Process each item
-            foreach ($request->items as $item) {
+            foreach ($request->items as $index => $item) {
                 // Create shipment item record
                 // $request is a StoreShipmentRequest object that contains the validated data from the request. It is used to access the items array and other shipment details.
                 // $shipment is the newly created Shipment model instance. It is used to associate the shipment items with the shipment.
@@ -76,7 +77,7 @@ class ShipmentController extends Controller
                 ]);
 
                 // Update product stock based on shipment type
-                $product = Product::find($item['product_id']);
+                $product = Product::findOrFail($item['product_id']);
 
                 if ($request->type === 'incoming') {
                     $newStock = $product->stock_packs + $item['packs_received'];
@@ -84,10 +85,15 @@ class ShipmentController extends Controller
                     $packsDelta = $item['packs_received'];
                     $note = "Received in shipment {$shipment->reference_number}";
                 } else {
-                    // outgoing — deduct from returned stock not sellable stock
-                    $newStock = $product->stock_packs;
-                    $newReturnedStock = max(0, $product->stock_returned_packs - $item['packs_received']);
-                    $product->update(['stock_returned_packs' => $newReturnedStock]);
+                    // outgoing — return stock to the supplier from available stock
+                    if ($item['packs_received'] > $product->stock_packs) {
+                        throw ValidationException::withMessages([
+                            "items.{$index}.packs_received" =>
+                                "Cannot return {$item['packs_received']} packs of {$product->name}; only {$product->stock_packs} are in stock.",
+                        ]);
+                    }
+
+                    $newStock = $product->stock_packs - $item['packs_received'];
                     $movementType = 'return_out';
                     $packsDelta = -$item['packs_received'];
                     $note = "Sent back to supplier in shipment {$shipment->reference_number}";
