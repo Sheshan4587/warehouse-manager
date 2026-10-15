@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShipmentController;
+use App\Http\Controllers\SaleController;
 
 //Dashboard route
 Route::get('/', function () {
@@ -26,4 +27,8 @@ Route::resource('products', ProductController::class)
 
 //Shipment routes
 Route::resource('shipments', ShipmentController::class)
+    ->only(['index', 'create', 'store', 'show', 'destroy']);
+
+//Sale routes
+Route::resource('sales', SaleController::class)
     ->only(['index', 'create', 'store', 'show', 'destroy']);
