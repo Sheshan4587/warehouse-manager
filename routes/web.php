@@ -7,6 +7,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShipmentController;
 use App\Http\Controllers\SaleController;
+use App\Http\Controllers\SaleReturnController;
 
 //Dashboard route
 Route::get('/', function () {
@@ -31,4 +32,8 @@ Route::resource('shipments', ShipmentController::class)
 
 //Sale routes
 Route::resource('sales', SaleController::class)
+    ->only(['index', 'create', 'store', 'show', 'destroy']);
+
+// Sale Return routes
+Route::resource('returns', SaleReturnController::class)
     ->only(['index', 'create', 'store', 'show', 'destroy']);
