@@ -22,7 +22,7 @@ class DashboardController extends Controller
         return Inertia::render('Dashboard/Index', [
             'stats' => [
                 'total_products'       => $products->count(),
-                'low_stock'            => $products->filter(fn($p) => $p->stock_packs > 0 && $p->stock_packs <= $p->low_stock_threshold)->count(),
+                'low_stock'            => $products->filter(fn($p) => $p->stock_packs > 0 && $p->stock_packs <= $p->low_stock_threshold)->count(), // Count products that are low in stock but not out of stock
                 'out_of_stock'         => $products->filter(fn($p) => $p->stock_packs === 0)->count(),
                 'today_sales'          => $todaySales->count(),
                 'today_revenue'        => $todaySales->sum('total_amount'),
@@ -36,4 +36,11 @@ class DashboardController extends Controller
                 ->values(),
         ]);
     }
+    /**
+     * The diffrence between -> and => is that -> is used to access properties and methods of an object, 
+     * while => is used to define key-value pairs in an associative array. 
+     * In this context, -> is used to access the count() method of the Collection object returned by the filter() method, 
+     * while => is used to define the key-value pairs in the stats array that is passed to the Inertia::render() method.
+     * In here key is the name of the stat and value is the value of the stat.
+     */
 }
