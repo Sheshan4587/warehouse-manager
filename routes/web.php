@@ -9,6 +9,7 @@ use App\Http\Controllers\ShipmentController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SaleReturnController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\StockMovementController;
 
 //Dashboard route
 Route::get('/', [DashboardController::class, 'index']);
@@ -36,3 +37,7 @@ Route::resource('sales', SaleController::class)
 // Sale Return routes
 Route::resource('returns', SaleReturnController::class)
     ->only(['index', 'create', 'store', 'show', 'destroy']);
+
+// Stock Movement routes
+Route::get('stock-movements', [StockMovementController::class, 'index'])
+    ->name('stock-movements.index');
