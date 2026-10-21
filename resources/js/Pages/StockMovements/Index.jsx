@@ -57,8 +57,8 @@ export default function Index({ movements, stats, products }) {
 
     // Filter movements based on selected filters
     const filtered = movements.filter(m => {
-        const matchProduct = filterProduct === '' || m.product_id === parseInt(filterProduct)
-        const matchType = filterType === '' || m.type === filterType
+        const matchProduct = filterProduct === '' || m.product_id === parseInt(filterProduct) // Filter by product
+        const matchType = filterType === '' || m.type === filterType // Filter by type if filterType is empty, match all types, otherwise match the selected type
         return matchProduct && matchType
     })
 
@@ -167,6 +167,11 @@ export default function Index({ movements, stats, products }) {
                                         <td className="px-4 py-3 text-gray-400 dark:text-gray-600">{index + 1}</td>
                                         <td className="px-4 py-3 font-medium text-gray-800 dark:text-gray-100">
                                             {movement.product.name}
+                                            {/*This movment is the instance of the stock movement, and it has a product relationship that contains the product name.*/}
+                                            {/* Which is created from backend and passed to the frontend as a prop.*/}
+                                            {/* product is the relationship of the stock movement model that contains the product model.*/}
+                                            {/* name is the attribute of the product model that contains the product name.*/}
+                                            {/* So all together, movement.product.name is the product name of the stock movement.*/}
                                         </td>
                                         <td className="px-4 py-3">
                                             <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium ${config.color}`}>
