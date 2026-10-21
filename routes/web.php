@@ -8,11 +8,10 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShipmentController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SaleReturnController;
+use App\Http\Controllers\DashboardController;
 
 //Dashboard route
-Route::get('/', function () {
-    return Inertia::render('Dashboard/Index');
-});
+Route::get('/', [DashboardController::class, 'index']);
 
 //Category routes
 Route::resource('categories', CategoryController::class)
