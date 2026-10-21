@@ -13,16 +13,18 @@ import {
     Sun,
     Moon,
     Warehouse,
+    History,
 } from 'lucide-react'
 
 const navItems = [
-    { label: 'Dashboard', href: '/', icon: LayoutDashboard },
-    { label: 'Categories', href: '/categories', icon: Tags },
-    { label: 'Suppliers', href: '/suppliers', icon: Users },
-    { label: 'Products', href: '/products', icon: Package },
-    { label: 'Shipments', href: '/shipments', icon: Truck },
-    { label: 'Sales', href: '/sales', icon: ShoppingCart },
-    { label: 'Returns', href: '/returns', icon: RotateCcw },
+    { label: 'Dashboard',       href: '/',               icon: LayoutDashboard },
+    { label: 'Categories',      href: '/categories',     icon: Tags },
+    { label: 'Suppliers',       href: '/suppliers',      icon: Users },
+    { label: 'Products',        href: '/products',       icon: Package },
+    { label: 'Shipments',       href: '/shipments',      icon: Truck },
+    { label: 'Sales',           href: '/sales',          icon: ShoppingCart },
+    { label: 'Returns',         href: '/returns',        icon: RotateCcw },
+    { label: 'Stock History',   href: '/stock-movements', icon: History },
 ]
 
 function useTheme() {
